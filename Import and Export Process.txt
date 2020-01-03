@@ -1,0 +1,39 @@
+****************************
+*	Import  And  Export    *
+****************************
+Export and Import steps are already provided in separate mail.
+
+For Export
+
+0) Connect with sys user and execute following commands.
+1) CREATE DIRECTORY <dump_directory_name> AS '<dump_directory_path>';
+2) GRANT read, write ON DIRECTORY <dump_directory_name> TO <schema_name>;
+
+For export command:
+Expdp PELOFAC/PELOFAC@orcl11r2 directory=dmpdir dumpfile=UBOC004QA_using_data_pump.dmp logfile=UBOC004QA_using_data_pump.log
+=====================================================================================================================================================================
+For Import
+0) Connect with sys user and execute following commands.
+1) CREATE DIRECTORY <dump_directory_name> AS '<dump_directory_path>';
+2) GRANT read, write ON DIRECTORY <dump_directory_name> TO <schema_name>;
+
+Keep your dump file on <dump_directory_path>.
+
+For import command prompt:
+impdp PELOFAC/PELOFAC@orcl11r2 directory=dmpdir dumpfile=<dump_file_name>.dmp logfile=<log_file_name>.log 
+
+While importing to different schema use below query
+
+impdp PELOFAC/PELOFAC@orcl11r2 directory=dmpdir dumpfile=UBOC004QA_using_data_pump.dmp table_exists_action=replace remap_schema=<oldschema>:PELOFAC logfile=UBOC004QA_using_data_pump.log
+
+remap command-
+impdp system/ace123@orcl directory=dmpdir dumpfile=PELOFACDT_20120208.dmp table_exists_action=replace logfile=PELOFACDT_20120208.log remap_schema=<oldschema>:PELOFAC77 remap_tablespace=<old_tablespacename>:TBS_PELOFAC77
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+********************************************************
+*	To find DMPDIR directory name or directory path	   *
+********************************************************
+
+SELECT directory_name,directory_path FROM dba_directories WHERE directory_path = '/aceapp/dump';
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------

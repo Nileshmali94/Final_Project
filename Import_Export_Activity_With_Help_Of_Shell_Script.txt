@@ -1,0 +1,12 @@
+# !/bin/bash
+echo "Task to perform:" $1
+echo "Scheama name is:" $2
+echo "Schema password is:" $3
+echo "Connection string is :" $4
+echo "Dump directory name is :" $5
+echo "Dump file name is :" $6
+echo "Log file name is :" $7
+
+# For export The database
+
+$1 $2/$3@$4 directory=$5 dumpfile=$6 logfile=$7;
